@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>Bir Kavanoz Işık</title>
+<meta name="theme-color" content="#05070f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Kavanoz">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="ikonlar/apple-touch-icon.png">
+<link rel="icon" href="ikonlar/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- arka plan: gece ve yavaş yavaş gelen şafak -->
+<div id="gokyuzu"></div>
+<canvas id="tuval"></canvas>
+
+<!-- ============ 0 · KİLİT EKRANI ============ -->
+<section id="kilit" class="sahne aktif">
+  <div class="kilit-ust">
+    <div id="saat">00:00</div>
+    <div id="tarih"></div>
+  </div>
+
+  <div class="bildirim" id="bildirim">
+    <div class="bildirim-ust">
+      <span class="bildirim-ikon">🕯</span>
+      <span class="bildirim-ad">KAVANOZ</span>
+      <span class="bildirim-zaman">şimdi</span>
+    </div>
+    <div class="bildirim-baslik" id="bildirim-baslik"></div>
+    <div class="bildirim-metin" id="bildirim-metin"></div>
+  </div>
+
+  <div class="kilit-alt">
+    <div class="ok"></div>
+    <div class="kaydir">yukarı kaydır</div>
+  </div>
+</section>
+
+<!-- ============ 1 · KARANLIK ODA ============ -->
+<section id="karanlik" class="sahne">
+  <div id="giris-yazi" class="buyuk-yazi"></div>
+  <button id="hazirim" class="dugme gizli">hazırım</button>
+</section>
+
+<!-- ============ 2 · ATEŞBÖCEĞİ AVI ============ -->
+<section id="av" class="sahne saydam">
+  <div id="av-ipucu" class="ipucu">telefonu yavaşça eğ · ışığa dokun</div>
+  <div id="kavanoz">
+    <svg viewBox="0 0 40 52" aria-hidden="true">
+      <rect x="13" y="1" width="14" height="5" rx="1.5" class="kapak"/>
+      <path d="M9 8 h22 a5 5 0 0 1 5 5 v32 a5 5 0 0 1 -5 5 h-22 a5 5 0 0 1 -5 -5 v-32 a5 5 0 0 1 5 -5 z" class="cam"/>
+      <clipPath id="kirp"><path d="M9 8 h22 a5 5 0 0 1 5 5 v32 a5 5 0 0 1 -5 5 h-22 a5 5 0 0 1 -5 -5 v-32 a5 5 0 0 1 5 -5 z"/></clipPath>
+      <g clip-path="url(#kirp)"><rect id="dolum" x="0" y="52" width="40" height="52" class="isik"/></g>
+    </svg>
+    <div id="sayac">0 / 0</div>
+  </div>
+</section>
+
+<!-- ============ mesaj kartı ============ -->
+<div id="kart-perde">
+  <article id="kart">
+    <div id="kart-no"></div>
+    <h2 id="kart-baslik"></h2>
+    <p id="kart-metin"></p>
+    <button id="kart-kapat" class="dugme ince">kavanoza koy</button>
+  </article>
+</div>
+
+<!-- ============ 3 · PASTA ve MUMLAR ============ -->
+<section id="pasta" class="sahne">
+  <div id="pasta-davet" class="buyuk-yazi"></div>
+  <div id="pasta-govde">
+    <div id="mumlar"></div>
+    <div class="kek">
+      <div class="kek-ust"></div>
+      <div class="kek-kat kat1"></div>
+      <div class="kek-kat kat2"></div>
+      <div class="tabak"></div>
+    </div>
+  </div>
+  <div id="ufle-alan">
+    <p id="ufle-talimat" class="ipucu"></p>
+    <div id="ufle-olcer"><i></i></div>
+    <button id="ufle-dugme" class="dugme gizli">basılı tut ve üfle</button>
+  </div>
+</section>
+
+<!-- ============ 4 · MEKTUP ============ -->
+<section id="mektup" class="sahne kaydirilabilir">
+  <div class="mektup-ic">
+    <h1 id="mektup-baslik"></h1>
+    <div id="mektup-yas"></div>
+    <div id="mektup-govde"></div>
+    <div id="mektup-fotograflar"></div>
+    <div id="mektup-imza"></div>
+
+    <div id="gunluk">
+      <div class="gunluk-etiket">bugünün notu</div>
+      <div id="gunluk-metin"></div>
+    </div>
+
+    <div id="son-blok">
+      <h3 id="son-baslik"></h3>
+      <p id="son-metin"></p>
+      <button id="kur" class="dugme gizli">ana ekrana ekle</button>
+      <p id="ios-yardim" class="minik gizli">
+        Safari'de alttaki <b>Paylaş</b> ikonuna dokun → <b>Ana Ekrana Ekle</b>
+      </p>
+      <button id="bastan" class="dugme ince">baştan izle</button>
+    </div>
+  </div>
+</section>
+
+<!-- ses düğmesi -->
+<button id="ses" title="ses" aria-label="ses aç/kapat"><span></span></button>
+
+<script src="icerik.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
